@@ -1,0 +1,17 @@
+{
+    "fpms":
+    [
+        {
+            "localPath": "/home/jur/nvidia",
+            "webPath": "/nvidia"
+        },
+        {
+            "localPath": "/home/jur/amd",
+            "webPath": "/amd"
+        },
+        {
+            "localPath": "/home/jur/intel",
+            "webPath": "/intel"
+        }
+    ]
+}
