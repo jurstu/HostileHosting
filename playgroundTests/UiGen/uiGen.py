@@ -23,16 +23,29 @@ class UiGen:
     def host(self):
         ui.run(reload=False, show=False)
 
-
     def spawnGui(self):
         self.controls = {}
-        dark = ui.dark_mode()
-        dark.enable()
+        ui.dark_mode().enable()
+        
+        self.controls["linkList"] = ui.column()
+        
+
+    def updateLinkList(self):
+        self.controls["linkList"].clear()
+        for page in self.subpages:
+            with self.controls["linkList"]:
+                with ui.row().classes('items-center gap-4'):
+                    ui.label(page.fpm.webPath).classes('text-blue-700 font-medium')
+                    ui.label(page.fpm.localPath).classes('text-gray-600')
+                    ui.link('Open', target=page.fpm.getWebRoute()).props('underline').classes('text-green-600')
+
+
 
     def generateFpms(self, fpms):
         self.subpages = []
         for fpm in fpms:
             self.subpages.append(FilesPage(fpm))
+        self.updateLinkList()
             
 
 if __name__ == "":

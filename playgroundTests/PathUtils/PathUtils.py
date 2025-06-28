@@ -1,23 +1,32 @@
 import os
 import shutil
 
+from LoggingSetup import getLogger
+logger = getLogger(__name__)
+
+def is_dir(path):
+    try:
+        return os.path.isdir(path)
+    except Exception as e:
+        logger.error(f"Error checking is path a dir: {e}")
+
 
 def create_directory(path):
     """Create a directory at the specified path."""
     try:
         os.makedirs(path, exist_ok=True)
-        print(f"Directory created: {path}")
+        logger.info(f"Directory created: {path}")
     except Exception as e:
-        print(f"Error creating directory: {e}")
+        logger.error(f"Error creating directory: {e}")
 
 
 def delete_directory(path):
     """Delete a directory at the specified path."""
     try:
         shutil.rmtree(path)
-        print(f"Directory deleted: {path}")
+        logger.info(f"Directory deleted: {path}")
     except Exception as e:
-        print(f"Error deleting directory: {e}")
+        logger.error(f"Error deleting directory: {e}")
 
 
 def list_files_in_directory(path):
@@ -26,7 +35,7 @@ def list_files_in_directory(path):
         files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
         return files
     except Exception as e:
-        print(f"Error listing files: {e}")
+        logger.error(f"Error listing files: {e}")
         return []
 
 
@@ -36,7 +45,7 @@ def list_directories_in_directory(path):
         directories = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
         return directories
     except Exception as e:
-        print(f"Error listing directories: {e}")
+        logger.error(f"Error listing directories: {e}")
         return []
 
 
@@ -48,16 +57,16 @@ def iterate_directory(path):
             print(f"Directories: {dirs}")
             print(f"Files: {files}")
     except Exception as e:
-        print(f"Error iterating directory: {e}")
+        logger.error(f"Error iterating directory: {e}")
 
 
 def delete_file(path):
     """Delete a file at the specified path."""
     try:
         os.remove(path)
-        print(f"File deleted: {path}")
+        logger.info(f"File deleted: {path}")
     except Exception as e:
-        print(f"Error deleting file: {e}")
+        logger.error(f"Error deleting file: {e}")
 
 
 def create_file(path, content=""):
@@ -65,9 +74,9 @@ def create_file(path, content=""):
     try:
         with open(path, "w") as file:
             file.write(content)
-        print(f"File created: {path}")
+        logger.info(f"File created: {path}")
     except Exception as e:
-        print(f"Error creating file: {e}")
+        logger.error(f"Error creating file: {e}")
 
 
 
