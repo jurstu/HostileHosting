@@ -4,6 +4,11 @@
         {
             "localPath": "/home/jur/hostGogle",
             "webPath": "/gogle"
+        },
+        {
+            "localPath": "/home/jur/nvidia",
+            "webPath": "/nvidia"
         }
+
     ]
 }
