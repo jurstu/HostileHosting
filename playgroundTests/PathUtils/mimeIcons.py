@@ -134,8 +134,8 @@ custom_mime_types = {
 for ext, mime in custom_mime_types.items():
     mimetypes.add_type(mime, ext)
 
-def get_emoji_for_file(path):
-    if is_dir(path):
+def get_emoji_for_file(path, dir=False):
+    if is_dir(path) or dir:
         return MIME_EMOJI_MAP.get("inode/directory")
     mime_type, _ = mimetypes.guess_type(path)
     return MIME_EMOJI_MAP.get(mime_type, "📦")

@@ -15,57 +15,54 @@ class FilesPage:
         self.fpm = fpm
         self.isRoot = isRoot
         self.controls = {}
-        
-        self.subPages = {}
 
-        if(self.isRoot):
-            logger.info(f"created {self.fpm.getWebRoute()} route")
-            ui.page(f'{self.fpm.getWebRoute()}')(self.spawnGui)()
-        else:
-            logger.info(f"CREATING SUBPAGE {self.fpm.webPath} route")
-            ui.page(f'{self.fpm.webPath}')(self.spawnGui)()
-        
-        for s in self.stuffToInit:
-            self.subPages[s.di] = FilesPage(s, False)
+        route = f'{self.fpm.getWebRoute()}/'
+        ui.page(route + '{full_path:path}')(self.spawnGui)
 
-        #logger.info(f"{self.fpm.webPathHash} ")
         
 
-    def spawnGui(self):
+    def downloadFile(self, sender):
+        ui.download.file(sender.path)
+
+    def spawnGui(self, full_path):
         ui.dark_mode().enable()
-        #with ui.header(elevated=True).style('background-color: #3874c8').classes('items-center justify-between'):
-        #    self.controls["pathLabel"] = ui.label(text=get_last_element(self.fpm.localPath))
-        #    ui.label('HEADER')
+        with ui.header(elevated=True).style('background-color: #3874c8').classes('items-center justify-between'):
+            self.controls["pathLabel"] = ui.label(text=get_last_element(self.fpm.localPath))
+            ui.label('Hostile Hosting')
 
-        self.stuffToInit = []
+
+        filesPath = os.path.join(self.fpm.localPath, full_path) # f"{self.fpm.localPath}/{full_path}"
+        webPath = f"{self.fpm.getWebRoute()}/{full_path}"
 
         with ui.column():
-            files = list_files_in_directory(self.fpm.localPath)
-            dirs = list_directories_in_directory(self.fpm.localPath)
+            files = list_files_in_directory(filesPath)
+            dirs = list_directories_in_directory(filesPath)
             
             for di in dirs:
                 with ui.row():
-                    localPath = os.path.join(self.fpm.localPath, di)
-                    if(self.isRoot):
-                        routePath = self.fpm.getWebRoute() + "/" + di
-                    else:
-                        routePath = f"{self.fpm.webPath}/{di}"
+                    routePath = webPath + di + "/"
+                    
 
 
-                    fpm = FilesPageModel(localPath, routePath)
-                    fpm.di = di
-                    self.stuffToInit.append(fpm)
-
-
-                    em = get_emoji_for_file(di)
+                    em = get_emoji_for_file(di, dir=True)
                     ui.label(f"{em} {di}")
                     ui.link(f"{em} {di}", routePath)
                     
-            for fi in files:
-                with ui.row():
-                    em = get_emoji_for_file(fi.lower())
-                    ui.label(f"{em} {fi}")
-                
+            with ui.column():
+                for fi in files:
+                    with ui.row():
+                        
+                        em = get_emoji_for_file(fi.lower())
+                        
+                        ui.label(f"{em} {fi}")
+
+                        fullPath = os.path.join(filesPath, fi)
+                        logger.info(fullPath)
+                        button = ui.button('download file', on_click=lambda e: self.downloadFile(e.sender))
+                        button.path = fullPath
+                        
+
+
 
 
         
