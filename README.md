@@ -1,9 +1,6 @@
 # HostileHosting
-"simple" file hosting alternative to services like nextcloud - PoC
 
-
-
-
+Simple file hosting alternative to services like nextcloud - PoC
 
 ## What should be possible with this software (TODO)
 
@@ -20,4 +17,7 @@
 - [ ] protect for
     - [X] path traversal with ../../../
     - [ ] symbolic links downloads (link pointing to /home/user/.ssh/id_rsa)
-    
+
+- [ ] Quality of life additions
+    - [ ] show weight of the file on the list
+    - [ ] view without downloading - videos, text, audio
