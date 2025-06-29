@@ -7,13 +7,17 @@
 
 ## What should be possible with this software (TODO)
 
-- [ ] share a folder with files inside it
+- [X] share a folder with files inside it
     - [ ] download the whole directory inside a .zip file
     - [ ] share it with a password auth
-- [ ] upload a file
+- [X] upload a file
     - [ ] only up to a size
     - [ ] with password auth
-- [ ] both options together
-- [ ] serve routes independently 
-- [ ] routes are available behind hashed values to obfuscate paths
-- [ ] for now, only through .json config file
+- [X] both options together
+- [X] serve routes independently 
+- [X] routes are available behind hashed values to obfuscate paths
+- [X] for now, only through .json config file
+- [ ] protect for
+    - [X] path traversal with ../../../
+    - [ ] symbolic links downloads (link pointing to /home/user/.ssh/id_rsa)
+    
