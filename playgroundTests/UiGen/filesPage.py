@@ -1,7 +1,7 @@
 from nicegui import ui, app
 import os
 from DataModels import FilesPageModel
-from PathUtils import get_last_element,  list_directories_in_directory, list_files_in_directory, get_emoji_for_file
+from PathUtils import get_last_element,  list_directories_in_directory, list_files_in_directory, get_emoji_for_file, get_weight_in_human_readable
 
 
 from LoggingSetup import getLogger
@@ -38,7 +38,7 @@ class FilesPage:
         webPath = f"{self.fpm.getWebRoute()}/{full_path}"
         with ui.row().classes('w-full'):
             with ui.column():
-                with ui.grid(columns=2):
+                with ui.grid(columns=3):
                     files = list_files_in_directory(filesPath)
                     dirs = list_directories_in_directory(filesPath)
                     
@@ -47,11 +47,13 @@ class FilesPage:
                                 em = get_emoji_for_file(obj, dir=True)
                                 ui.label(f"{em} {obj}")
                                 routePath = webPath + obj + "/"
+                                ui.label("")
                                 ui.link(f"{em} {obj}", routePath)
                             else:
                                 em = get_emoji_for_file(obj.lower())
                                 ui.label(f"{em} {obj}")
                                 fullPath = os.path.join(filesPath, obj)
+                                ui.label(f"{get_weight_in_human_readable(fullPath)}")
                                 button = ui.button('download file', on_click=lambda e: self.downloadFile(e.sender))
                                 button.path = fullPath
             ui.space()

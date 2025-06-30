@@ -87,3 +87,27 @@ def exists(path):
 
 def get_last_element(path:str):
     return path.split("/")[-1]
+
+
+
+def get_weight_of_file(path: str):
+    try:
+        size = os.path.getsize(path)
+        return size
+    except Exception as e:
+        logger.error(f"Error getting file size: {e}")
+        return None
+    
+def get_weight_in_human_readable(path: str):
+    try:
+        size = get_weight_of_file(path)
+        if size is None:
+            return None
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB', 'PB']:
+            if size < 1024:
+                return f"{size:.2f} {unit}"
+            size /= 1024
+        return f"{size:.2f} PB"
+    except Exception as e:
+        logger.error(f"Error getting human readable file size: {e}")
+        return None
