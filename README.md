@@ -19,5 +19,5 @@ Simple file hosting alternative to services like nextcloud - PoC
     - [ ] symbolic links downloads (link pointing to /home/user/.ssh/id_rsa)
 
 - [ ] Quality of life additions
-    - [ ] show weight of the file on the list
+    - [X] show weight of the file on the list
     - [ ] view without downloading - videos, text, audio
